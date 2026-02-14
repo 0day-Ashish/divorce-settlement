@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "../../../../",
+  "sources": ["src/divorce.compact"],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAAA;;;;;;;;;;MAoBA,AAAA,eAIC;;;;;cAJ8B,mBAA0B;;;;;;;;;;;;;;;;;;yCAA1B,mBAA0B;;;;;;;;;iDAA1B,mBAA0B;;;OAIxD;MAID,AAAA,eAIC;;;;;cAJ8B,mBAA0B;;;;;;;;;;;;;;;;;;yCAA1B,mBAA0B;;;;;;;;;iDAA1B,mBAA0B;;;OAIxD;MAGD,AAAA,kBAKC;;;;;;;;;;;;;;;;;;;;;;OAAA;;;;;;;GACA;EAzCD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAUA;;;;;;;;;yEAAiC;IACjC;;;;;;;;;yEAAuC;IACvC;;;;;;;;;yEAAuC;;;;;;;GA6BtC;EArBD,AAAA,kBAIC,4BAJ8B,mBAA0B;0CAC9C,mBAAiB;;kEACjB;;;;;;;;;;;uIAAS;;;UAChB,KAAe;IAAf;;;;;;;2HAAA,KAAe;;yEAAA;;GAClB;EAID,AAAA,kBAIC,4BAJ8B,mBAA0B;0CAC9C,mBAAiB;;kEACjB;;;;;;;;;;;uIAAS;;;UAChB,KAAe;IAAf;;;;;;;2HAAA,KAAe;;yEAAA;;GAClB;EAGD,AAAA,qBAKC;kEAJU;;;;;;;;;;;uIAAe;;;kEACf;;;;;;;;;;;uIAAe;;;kEACf;;;;;;;;;;;uIAAS;;;UAChB,KAAS;IAAT;;;;;;;2HAAA,KAAS;;yEAAA;;GACZ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IA9BD;qCAAA;;;;;;;;;;;0GAAiC;KAAA;IACjC;qCAAA;;;;;;;;;;;0GAAuC;KAAA;IACvC;qCAAA;;;;;;;;;;;0GAAuC;KAAA;;;;;;;;;;"
+}

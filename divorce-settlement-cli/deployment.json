@@ -1,0 +1,53 @@
+{
+  "contractAddress": "822abc2d9740bb00f93861e7d9e804a48c2beb16c04d1c17f7f0ca0b8479695f",
+  "deployedAt": "2026-02-14T09:51:11.965Z",
+  "network": "preprod",
+  "walletAddress": {
+    "type": "addr",
+    "network": "preprod",
+    "data": {
+      "type": "Buffer",
+      "data": [
+        141,
+        238,
+        236,
+        209,
+        93,
+        225,
+        110,
+        227,
+        103,
+        122,
+        88,
+        150,
+        48,
+        100,
+        19,
+        227,
+        79,
+        252,
+        5,
+        167,
+        181,
+        81,
+        133,
+        250,
+        156,
+        194,
+        195,
+        172,
+        42,
+        89,
+        128,
+        106
+      ]
+    }
+  },
+  "project": "Divorce Settlement Tracker",
+  "description": "Divorcing parties track compliance with settlement terms on-chain with amounts and conditions hidden from public court records",
+  "config": {
+    "indexer": "https://indexer.preprod.midnight.network/api/v3/graphql",
+    "node": "https://rpc.preprod.midnight.network",
+    "proofServer": "http://127.0.0.1:6300"
+  }
+}
