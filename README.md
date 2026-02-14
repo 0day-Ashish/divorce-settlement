@@ -32,7 +32,7 @@
 
 In traditional systems, settlement agreements are filed in court — exposing sensitive financial details, asset information, and personal terms to public records. This project solves that problem using **zero-knowledge proofs (ZKPs)**, allowing both parties to prove they've complied with settlement terms **without revealing any of the underlying data**.
 
-> 🔐 **Think of it like this:** Both parties can say *"Yes, I've done what I agreed to"* — and the blockchain can verify it — without anyone ever seeing *what* they agreed to.
+> 🔐 **Think of it like this:** Both parties can say _"Yes, I've done what I agreed to"_ — and the blockchain can verify it — without anyone ever seeing _what_ they agreed to.
 
 ---
 
@@ -58,21 +58,21 @@ The dApp provides a simple, three-step workflow for tracking divorce settlement 
 1. **Party A** calls `confirmByPartyA()` with a private proof of compliance — the proof is never stored or visible on-chain
 2. **Party B** independently calls `confirmByPartyB()` with their own private proof
 3. Once both parties have confirmed, anyone can call `finalizeSettlement()` to mark the case as complete
-4. The blockchain only records *whether* each party confirmed and *whether* the settlement is done — **never the terms, amounts, or conditions**
+4. The blockchain only records _whether_ each party confirmed and _whether_ the settlement is done — **never the terms, amounts, or conditions**
 
 ---
 
 ## ✨ Features
 
-| Feature | Description |
-|---------|-------------|
-| 🔒 **Full Privacy** | Settlement terms, financial amounts, and conditions are never revealed on-chain |
-| 🛡️ **Zero-Knowledge Proofs** | Compliance is verified cryptographically without exposing the underlying data |
-| ⚡ **Dual-Party Confirmation** | Both parties must independently confirm before settlement can be finalized |
-| 🌐 **On-Chain Verification** | All confirmations are recorded immutably on the Midnight blockchain |
-| 🖥️ **Interactive CLI** | Easy-to-use terminal interface for deploying and interacting with contracts |
-| 🏗️ **Multi-Network Support** | Deploy to Local, Preview, or Preprod testnets |
-| 📦 **Monorepo Architecture** | Clean separation of contract, CLI, and frontend packages |
+| Feature                        | Description                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------- |
+| 🔒 **Full Privacy**            | Settlement terms, financial amounts, and conditions are never revealed on-chain |
+| 🛡️ **Zero-Knowledge Proofs**   | Compliance is verified cryptographically without exposing the underlying data   |
+| ⚡ **Dual-Party Confirmation** | Both parties must independently confirm before settlement can be finalized      |
+| 🌐 **On-Chain Verification**   | All confirmations are recorded immutably on the Midnight blockchain             |
+| 🖥️ **Interactive CLI**         | Easy-to-use terminal interface for deploying and interacting with contracts     |
+| 🏗️ **Multi-Network Support**   | Deploy to Local, Preview, or Preprod testnets                                   |
+| 📦 **Monorepo Architecture**   | Clean separation of contract, CLI, and frontend packages                        |
 
 ---
 
@@ -80,27 +80,27 @@ The dApp provides a simple, three-step workflow for tracking divorce settlement 
 
 The contract is **live and verified** on the Midnight **Preprod** testnet:
 
-| | |
-|---|---|
+|                         |                                                                    |
+| ----------------------- | ------------------------------------------------------------------ |
 | 📍 **Contract Address** | `822abc2d9740bb00f93861e7d9e804a48c2beb16c04d1c17f7f0ca0b8479695f` |
-| 🌐 **Network** | Preprod Testnet |
-| 📅 **Deployed At** | February 14, 2026 |
-| 🔗 **Indexer** | `https://indexer.preprod.midnight.network` |
-| 🖧 **Node RPC** | `https://rpc.preprod.midnight.network` |
+| 🌐 **Network**          | Preprod Testnet                                                    |
+| 📅 **Deployed At**      | February 14, 2026                                                  |
+| 🔗 **Indexer**          | `https://indexer.preprod.midnight.network`                         |
+| 🖧 **Node RPC**          | `https://rpc.preprod.midnight.network`                             |
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Component | Technology |
-|-----------|-----------|
+| Component      | Technology                                                                |
+| -------------- | ------------------------------------------------------------------------- |
 | Smart Contract | [Compact](https://docs.midnight.network/) (Midnight's ZK-native language) |
-| Blockchain | [Midnight Network](https://midnight.network/) |
-| ZK Proving | Halo2-based ZK Circuits |
-| Frontend | React + Vite |
-| CLI | TypeScript + ts-node |
-| Wallet | Midnight Wallet SDK (HD, Shielded, Unshielded, Dust) |
-| Build System | Turborepo + npm workspaces |
+| Blockchain     | [Midnight Network](https://midnight.network/)                             |
+| ZK Proving     | Halo2-based ZK Circuits                                                   |
+| Frontend       | React + Vite                                                              |
+| CLI            | TypeScript + ts-node                                                      |
+| Wallet         | Midnight Wallet SDK (HD, Shielded, Unshielded, Dust)                      |
+| Build System   | Turborepo + npm workspaces                                                |
 
 ---
 
@@ -137,28 +137,28 @@ divorce-settlement-tracker/
 
 The contract is written in **Compact** — Midnight's ZK-native smart contract language. It exposes **3 circuits**:
 
-| Circuit | What It Does |
-|---------|-------------|
-| `confirmByPartyA(proofOfCompliance)` | Party A privately proves they've met settlement terms |
-| `confirmByPartyB(proofOfCompliance)` | Party B privately proves they've met settlement terms |
-| `finalizeSettlement()` | Finalizes the settlement (requires both parties to have confirmed) |
+| Circuit                              | What It Does                                                       |
+| ------------------------------------ | ------------------------------------------------------------------ |
+| `confirmByPartyA(proofOfCompliance)` | Party A privately proves they've met settlement terms              |
+| `confirmByPartyB(proofOfCompliance)` | Party B privately proves they've met settlement terms              |
+| `finalizeSettlement()`               | Finalizes the settlement (requires both parties to have confirmed) |
 
 ### On-Chain State (Public Ledger)
 
-| Field | Type | Meaning |
-|-------|------|---------|
-| `isSettled` | `Uint<8>` | `0` = ongoing, `1` = finalized |
+| Field             | Type      | Meaning                              |
+| ----------------- | --------- | ------------------------------------ |
+| `isSettled`       | `Uint<8>` | `0` = ongoing, `1` = finalized       |
 | `partyAConfirmed` | `Uint<8>` | `0` = not confirmed, `1` = confirmed |
 | `partyBConfirmed` | `Uint<8>` | `0` = not confirmed, `1` = confirmed |
 
 ### What's Private vs Public
 
-| ✅ Public (on-chain) | 🔒 Private (never revealed) |
-|---------------------|---------------------------|
-| Whether Party A confirmed | The compliance proof data |
+| ✅ Public (on-chain)      | 🔒 Private (never revealed)   |
+| ------------------------- | ----------------------------- |
+| Whether Party A confirmed | The compliance proof data     |
 | Whether Party B confirmed | Settlement terms & conditions |
-| Whether it's finalized | Financial amounts & assets |
-| Contract address | Party identities |
+| Whether it's finalized    | Financial amounts & assets    |
+| Contract address          | Party identities              |
 
 ---
 
@@ -166,13 +166,13 @@ The contract is written in **Compact** — Midnight's ZK-native smart contract l
 
 ### Prerequisites
 
-| Tool | Version | Purpose |
-|------|---------|---------|
-| [Node.js](https://nodejs.org/) | v18+ | Runtime |
-| [npm](https://www.npmjs.com/) | v10+ | Package manager |
-| [Docker](https://docs.docker.com/get-docker/) | Latest | Proof server |
-| [Git LFS](https://git-lfs.com/) | Latest | Large ZK key files |
-| [Compact](https://docs.midnight.network/relnotes/compact-tools) | Latest | Contract compiler |
+| Tool                                                            | Version | Purpose            |
+| --------------------------------------------------------------- | ------- | ------------------ |
+| [Node.js](https://nodejs.org/)                                  | v18+    | Runtime            |
+| [npm](https://www.npmjs.com/)                                   | v10+    | Package manager    |
+| [Docker](https://docs.docker.com/get-docker/)                   | Latest  | Proof server       |
+| [Git LFS](https://git-lfs.com/)                                 | Latest  | Large ZK key files |
+| [Compact](https://docs.midnight.network/relnotes/compact-tools) | Latest  | Contract compiler  |
 
 ### Step 1 — Clone & Install
 
@@ -214,6 +214,7 @@ npm run deploy
 ```
 
 You'll be prompted to:
+
 1. Pick a network (Local / Preview / Preprod)
 2. Enter a wallet seed
 3. Wait for sync + funds
@@ -230,6 +231,7 @@ npm run tui-preprod      # Preprod testnet
 ```
 
 The terminal UI lets you:
+
 - 🚀 Deploy or join a settlement contract
 - ✅ Confirm compliance as Party A or Party B
 - 🏁 Finalize the settlement
@@ -246,9 +248,9 @@ npm run dev:frontend
 
 ## 🌐 Network Configuration
 
-| Network | Indexer | Node RPC | Proof Server |
-|---------|---------|----------|-------------|
-| **Local** | `http://127.0.0.1:8088` | `http://127.0.0.1:9944` | `http://127.0.0.1:6300` |
+| Network     | Indexer                                    | Node RPC                               | Proof Server            |
+| ----------- | ------------------------------------------ | -------------------------------------- | ----------------------- |
+| **Local**   | `http://127.0.0.1:8088`                    | `http://127.0.0.1:9944`                | `http://127.0.0.1:6300` |
 | **Preview** | `https://indexer.preview.midnight.network` | `https://rpc.preview.midnight.network` | `http://127.0.0.1:6300` |
 | **Preprod** | `https://indexer.preprod.midnight.network` | `https://rpc.preprod.midnight.network` | `http://127.0.0.1:6300` |
 
@@ -258,15 +260,15 @@ npm run dev:frontend
 
 ## 📋 Available Scripts
 
-| Script | Where | What It Does |
-|--------|-------|-------------|
-| `npm run compact` | Root | Compile all Compact contracts |
-| `npm run build` | Root | Build all packages |
-| `npm run dev:frontend` | Root | Start React dev server |
-| `npm run deploy` | CLI | Deploy contract (interactive) |
-| `npm run tui-undeployed` | CLI | CLI on local network |
-| `npm run tui-preview` | CLI | CLI on Preview testnet |
-| `npm run tui-preprod` | CLI | CLI on Preprod testnet |
+| Script                   | Where | What It Does                  |
+| ------------------------ | ----- | ----------------------------- |
+| `npm run compact`        | Root  | Compile all Compact contracts |
+| `npm run build`          | Root  | Build all packages            |
+| `npm run dev:frontend`   | Root  | Start React dev server        |
+| `npm run deploy`         | CLI   | Deploy contract (interactive) |
+| `npm run tui-undeployed` | CLI   | CLI on local network          |
+| `npm run tui-preview`    | CLI   | CLI on Preview testnet        |
+| `npm run tui-preprod`    | CLI   | CLI on Preprod testnet        |
 
 ---
 
@@ -287,7 +289,7 @@ This project is licensed under **Apache-2.0**. See the [LICENSE](LICENSE) file f
 
 **Built with ❤️ on [Midnight Network](https://midnight.network/)**
 
-*Privacy-preserving smart contracts powered by zero-knowledge proofs*
+_Privacy-preserving smart contracts powered by zero-knowledge proofs_
 
 ⭐ Star this repo if you found it useful!
 
