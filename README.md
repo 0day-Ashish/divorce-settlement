@@ -22,7 +22,7 @@
 
 ## 📸 Preview
 
-![Divorce Settlement Tracker](public/image.png)
+![Divorce Settlement Tracker](public/img.png)
 
 ---
 
