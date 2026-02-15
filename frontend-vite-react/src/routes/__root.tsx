@@ -1,16 +1,18 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import * as pino from "pino";
 import { ThemeProvider } from "@/components/theme-provider";
 import { MidnightMeshProvider } from "@/modules/midnight/wallet-widget/contexts/wallet";
-import { CounterAppProvider } from "@/modules/midnight/counter-sdk/contexts";
+import { DivorceAppProvider } from "@/modules/midnight/divorce-sdk/contexts";
 import { MainLayout } from "@/layouts/layout";
 
 export const logger = pino.pino({
   level: "trace",
 });
 
-// Update this with your deployed contract address
-const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS!;
+// Deployed contract address on Midnight Preprod testnet
+const contractAddress =
+  import.meta.env.VITE_CONTRACT_ADDRESS ??
+  "822abc2d9740bb00f93861e7d9e804a48c2beb16c04d1c17f7f0ca0b8479695f";
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -18,13 +20,13 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <MidnightMeshProvider logger={logger}>
-        <CounterAppProvider logger={logger} contractAddress={contractAddress}>
+        <DivorceAppProvider logger={logger} contractAddress={contractAddress}>
           <MainLayout>
             <Outlet />
-          </MainLayout>          
-        </CounterAppProvider>
+          </MainLayout>
+        </DivorceAppProvider>
       </MidnightMeshProvider>
     </ThemeProvider>
   );

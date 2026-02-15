@@ -35,107 +35,119 @@ export class WrappedPublicDataProvider implements PublicDataProvider {
   constructor(
     private readonly wrapped: PublicDataProvider,
     private readonly callback: (
-      action: "watchForTxDataStarted" | "watchForTxDataDone"
+      action: "watchForTxDataStarted" | "watchForTxDataDone",
     ) => void,
-    private readonly logger?: Logger
+    private readonly logger?: Logger,
   ) {}
 
   contractStateObservable(
     address: ContractAddress,
-    config: ContractStateObservableConfig
+    config: ContractStateObservableConfig,
   ): Observable<ContractState> {
     return this.wrapped.contractStateObservable(address, config);
   }
 
   queryContractState(
     contractAddress: ContractAddress,
-    config?: BlockHeightConfig | BlockHashConfig
+    config?: BlockHeightConfig | BlockHashConfig,
   ): Promise<ContractState | null> {
     return retryWithBackoff(
       () => this.wrapped.queryContractState(contractAddress, config),
       "queryContractState",
-      this.logger
+      this.logger,
     );
   }
 
   queryDeployContractState(
-    contractAddress: ContractAddress
+    contractAddress: ContractAddress,
   ): Promise<ContractState | null> {
     return retryWithBackoff(
       () => this.wrapped.queryDeployContractState(contractAddress),
       "queryDeployContractState",
-      this.logger
+      this.logger,
     );
   }
 
   queryZSwapAndContractState(
     contractAddress: ContractAddress,
-    config?: BlockHeightConfig | BlockHashConfig
+    config?: BlockHeightConfig | BlockHashConfig,
   ): Promise<[ZswapChainState, ContractState] | null> {
     return retryWithBackoff(
       () => this.wrapped.queryZSwapAndContractState(contractAddress, config),
       "queryZSwapAndContractState",
-      this.logger
+      this.logger,
     );
   }
 
   queryUnshieldedBalances(
     contractAddress: ContractAddress,
-    config?: BlockHeightConfig | BlockHashConfig
+    config?: BlockHeightConfig | BlockHashConfig,
   ): Promise<UnshieldedBalances | null> {
     return retryWithBackoff(
       () => this.wrapped.queryUnshieldedBalances(contractAddress, config),
       "queryZSwapAndContractState",
-      this.logger
+      this.logger,
     );
   }
 
   watchForContractState(
-    contractAddress: ContractAddress
+    contractAddress: ContractAddress,
   ): Promise<ContractState> {
     return retryWithBackoff(
       () => this.wrapped.watchForContractState(contractAddress),
       "watchForContractState",
-      this.logger
+      this.logger,
     );
   }
 
   watchForUnshieldedBalances(
-    contractAddress: ContractAddress
+    contractAddress: ContractAddress,
   ): Promise<UnshieldedBalances> {
     return retryWithBackoff(
       () => this.wrapped.watchForUnshieldedBalances(contractAddress),
       "watchForContractState",
-      this.logger
+      this.logger,
     );
   }
 
   watchForDeployTxData(
-    contractAddress: ContractAddress
+    contractAddress: ContractAddress,
   ): Promise<FinalizedTxData> {
     return retryWithBackoff(
       () => this.wrapped.watchForDeployTxData(contractAddress),
       "watchForDeployTxData",
-      this.logger
+      this.logger,
     );
   }
 
   watchForTxData(txId: TransactionId): Promise<FinalizedTxData> {
     // calling a callback is a workaround to show in the UI when the watchForTxData is called
     this.callback("watchForTxDataStarted");
+    console.log(
+      "[DST] watchForTxData: waiting for tx finalization, txId:",
+      txId,
+    );
     return retryWithBackoff(
       () => this.wrapped.watchForTxData(txId),
-      "watchForTxDataStarted",
+      "watchForTxData",
       this.logger,
-      1000 // we keep retrying long enough
-    ).finally(() => {
-      this.callback("watchForTxDataDone");
-    });
+      80, // generous retries — block finalization can take a long time on testnet
+      3000, // start with 3s delay
+      1.3, // gentler backoff factor
+      20000, // max 20s between retries
+    )
+      .then((result) => {
+        console.log("[DST] watchForTxData: tx finalized!", txId);
+        return result;
+      })
+      .finally(() => {
+        this.callback("watchForTxDataDone");
+      });
   }
 
   unshieldedBalancesObservable(
     address: ContractAddress,
-    config: ContractStateObservableConfig
+    config: ContractStateObservableConfig,
   ): Observable<UnshieldedBalances> {
     return this.wrapped.unshieldedBalancesObservable(address, config);
   }
